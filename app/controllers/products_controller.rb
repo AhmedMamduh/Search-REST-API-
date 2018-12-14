@@ -8,6 +8,12 @@ class ProductsController < ApplicationController
     render json: @products
   end
 
+  # GET /product?query=ProductName
+  def search_by_product_name
+    @results = Product.text_search(params[:query])
+    render json: @results
+  end
+
   # GET /products/1
   def show
     render json: @product
