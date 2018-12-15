@@ -7,7 +7,7 @@ module Api
 		  def index
 		    @products = Product.all
 
-		    render json: @products
+		    render json: { status: "SUCCESS", data: @products}, status: :ok
 		  end
 
 		  # GET api/v1/product?query=ProductName
