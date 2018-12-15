@@ -13,10 +13,14 @@ module Api
 		  # GET api/v1/product?query=ProductName
 		  def search_by_product_name
 		    @results = Product.text_search(params[:query])
-		    if @results.empty?
-		    	render json: { status: "FAILED", message: "No product found"}
+		    if @results.nil?
+		    	render json: { message: "Search by prodcut name using api/v1/product?query=ProductName"}
 		    else
-		    	render json: { status: "SUCCESS", data: @results}, status: :ok
+		    	if @results.empty?
+		    		render json: { status: "FAILED", message: "No product found"}
+		    	else
+		    		render json: { status: "SUCCESS", data: @results}, status: :ok
+		    	end
 			end
 		  end
 
@@ -30,24 +34,25 @@ module Api
 		    @product = Product.new(product_params)
 
 		    if @product.save
-		      render json: @product, status: :created, location: @product
+		      render json: { status: "SUCCESS", data: @product}, status: :ok
 		    else
-		      render json: @product.errors, status: :unprocessable_entity
+		      render json: { status: "ERROR", data: @product.errors}, status: :unprocessable_entity
 		    end
 		  end
 
 		  # PATCH/PUT api/v1/products/1
 		  def update
 		    if @product.update(product_params)
-		      render json: @product
+		      render json: { status: "SUCCESS", data: @product}, status: :ok
 		    else
-		      render json: @product.errors, status: :unprocessable_entity
+		      render json: { status: "ERROR", data: @product.errors}, status: :unprocessable_entity
 		    end
 		  end
 
 		  # DELETE api/v1/products/1
 		  def destroy
 		    @product.destroy
+		    render json: { message: "Product deleted"}
 		  end
 
 		  private
