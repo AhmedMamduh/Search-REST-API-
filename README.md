@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Search by product name REST API using Rails.
 
-Things you may want to cover:
+Include:
 
-* Ruby version
+* Search REST API
 
-* System dependencies
+* Postgresql DB that have products table with one column product name
 
-* Configuration
+* Unit testing
 
-* Database creation
+## How to use
 
-* Database initialization
+1- Create DB then run rails db:seed.
 
-* How to run the test suite
+2- Get a list to all products => api/v1/products.
 
-* Services (job queues, cache servers, search engines, etc.)
+3- Search products using product name => api/v1/product?query=ProductName, 
+e.g.=> api/v1/product?query=Durable Copper Watch.
 
-* Deployment instructions
-
-* ...
